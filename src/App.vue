@@ -1,15 +1,17 @@
 <template>
   <div>
-    
+    <UploadClient/>
   </div>
 </template>
 
 <script>
 
+import UploadClient from '@/components/UploadClient.vue';
+
 export default {
   name: 'App',
   components: {
-
+    UploadClient
   }
 }
 </script>
