@@ -24,7 +24,11 @@ export default {
    },
    methods: {
       onUpload(e){
-         if(e.target.files[0].type === "image/*" &&  e.target.files[0].size  <= 2097152  ) {
+         console.log(e.target.files[0].type === "image/*" , e.target.files[0].size  <= 2097152);
+         if(e.target.files[0].type == "jpg" || 
+            e.target.files[0].type == "jpeg" || 
+            e.target.files[0].type == "png" || 
+            e.target.files[0].size  <= 2097152  ) {
            this.addFile(e.target.files[0]);
          }
       },
@@ -32,6 +36,7 @@ export default {
          console.log('hello');
          const file = value;
          console.log(file);
+         cloudinaryConfig.
          cloudinaryConfig.upload(file).then(res => {
             console.log('Image uploaded', res);
          }).catch(err => {
