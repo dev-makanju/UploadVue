@@ -1,75 +1,36 @@
 <template>
    <div class="img_wrapper">
-      <label for="upload">Drag or Click to upload</label>
-      <p>Image should not be more than 2mb</p>
-      <input
-         class="imageInp" 
-         id="upload"
-         type="file" 
-         @change="onUpload"
-         accept="image/*">
+      <button @click="openWidget">Upload</button>
    </div>
 </template>
 
 <script>
 
-import cloudinaryConfig from '../../cloudinary';
-
 export default {
    name: 'UploadClient',
+   components: {
+   },
    data(){
       return {
-        file: {},
       }
    },
    methods: {
-      onUpload(e){
-         console.log(e.target.files[0].type === "image/*" , e.target.files[0].size  <= 2097152);
-         if(e.target.files[0].type == "jpg" || 
-            e.target.files[0].type == "jpeg" || 
-            e.target.files[0].type == "png" || 
-            e.target.files[0].size  <= 2097152  ) {
-           this.addFile(e.target.files[0]);
-         }
-      },
-      addFile(value){
-         console.log('hello');
-         const file = value;
-         console.log(file);
-         cloudinaryConfig.
-         cloudinaryConfig.upload(file).then(res => {
-            console.log('Image uploaded', res);
-         }).catch(err => {
-            console.log('an error occured:' + err);
-         })
+      openWidget(){
+         const widget = window.cloudinary.createUploadWidget(
+            { 
+               cloud_name: 'dyz1ogpac',
+               upload_preset: 'upload-demo',
+            },//fonfig
+            (error, result) => {
+               if(!error && result && result.event == "success"){
+                  console.log('Huray!, Image Uploaded...' , result.info)
+               }
+            }//callback
+         )
+         widget.open();
       }
    }
 
 }
 
 </script>
-
-
-<style lang="css" scoped>
-   .imageInp {
-      display: none;
-   }
-
-   .img_wrapper {
-      border: 1px dashed #ccc;
-      padding: 50px;
-      border-radius: 5px;
-   }
-
-   .img_wrapper label {
-      cursor: pointer;
-   }
-
-   .img_wrapper p {
-      font-size: 12px;
-      font-weight: 300;
-      color:  #e74e3c;
-      font-style: italic;
-   }
-
-</style>
