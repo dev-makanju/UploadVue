@@ -23,7 +23,9 @@ export default {
             },//fonfig
             (error, result) => {
                if(!error && result && result.event == "success"){
-                  console.log('Huray!, Image Uploaded...' , result.info)
+                  console.log('Huray!, Image Uploaded...' , result.info);
+                  window.open(result.info.url,"_target")
+                  widget.close();
                }
             }//callback
          )
@@ -34,3 +36,13 @@ export default {
 }
 
 </script>
+
+<style lang="css" scoped>
+   .img_wrapper button{ 
+      padding: 7px 20px;
+      font-size: 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;  
+   } 
+</style>
